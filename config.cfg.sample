@@ -14,7 +14,7 @@ api_key=
 [tumblr]
 oauth_consumer_key=
 
-[google_login]
+[google_docs]
 user_name=
 password=
 spreadsheet_title=
