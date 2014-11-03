@@ -1,2 +1,4 @@
 config.cfg
-.pyc
+__pycache__/
+*.py[cod]
+env/
