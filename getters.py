@@ -14,14 +14,17 @@ def log(account, prefix=""):
   """
   print "Checking " + prefix + account
 
+
 def facebook(account):
-  """
-  @account: str
-  """
-  log(account, "facebook.com/")
-  r = requests.get('https://graph.facebook.com/' + account)
-  if r.status_code == 200:
-    return r.json()['likes']
+    """
+    @account: str
+    """
+    log(account, "facebook.com/")
+    r = requests.get('https://graph.facebook.com/' + account +
+                     '?access_token=' + cfg.get('facebook', 'access_token'))
+    if r.status_code == 200:
+        return r.json()['likes']
+
 
 def twitter(account):
   """
