@@ -27,30 +27,33 @@ c.login()
 # Get the spreadsheet
 s = c.open(sheet_title)
 
+
 def get_latest_update(network):
-  """
-  @network: str
-  """
-  w = s.worksheet(network)
-  cell_val = w.acell('A' + str(w.row_count)).value
-  return str(parse(cell_val).date())
+    """
+    @network: str
+    """
+    w = s.worksheet(network)
+    cell_val = w.acell('A' + str(w.row_count)).value
+    return str(parse(cell_val).date())
+
 
 def save_stats(network, getter):
-  """
-  @network: str
-  @getter: function
-  """
-  todays_date = str(datetime.date.today())
-  # Only pull stats if we haven't yet pulled them for today
-  if get_latest_update(network) != todays_date:
-    print "Saving stats for " + network
-    w = s.worksheet(network)
-    counts = [todays_date]
-    for account in w.row_values(1)[1:]:
-      counts.append(str(getter(account)))
-    w.append_row(counts)
-  else:
-    print "Today's stats already gathered for " + network
+    """
+    @network: str
+    @getter: function
+    """
+    todays_date = str(datetime.date.today())
+    # Only pull stats if we haven't yet pulled them for today
+    if get_latest_update(network) != todays_date:
+        print "Saving stats for " + network
+        w = s.worksheet(network)
+        counts = [todays_date]
+        for account in w.row_values(1)[1:]:
+            counts.append(str(getter(account)))
+            w.append_row(counts)
+    else:
+        print "Today's stats already gathered for " + network
+
 
 # Get the stats for each network and save them to GDocs
 save_stats('Facebook', get.facebook)
